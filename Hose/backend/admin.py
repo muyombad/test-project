@@ -3,7 +3,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile,Lesons, CourseProgress,Contact
 
 # Define an inline admin descriptor for Profile model
 # which acts a bit like a singleton
@@ -19,6 +19,9 @@ class UserAdmin(BaseUserAdmin):
 # Re-register UserAdmin
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
+admin.site.register(Lesons)
+admin.site.register(CourseProgress)
+admin.site.register(Contact)
 
 # Register the Profile model separately
 @admin.register(Profile)

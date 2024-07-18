@@ -44,10 +44,12 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'allauth',
+    'django_rest_passwordreset',
     'allauth.account',
     'allauth.socialaccount',
     'dj_rest_auth',
     'dj_rest_auth.registration',
+    
 ]
 CORS_ORIGIN_WHITELIST = [
   'http://localhost:3000',
@@ -80,10 +82,45 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-# Allauth settings
-ACCOUNT_EMAIL_VERIFICATION = 'none'
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
-ACCOUNT_EMAIL_REQUIRED = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'mail.hoseconsultsugandaltd.com'  # Replace with your SMTP server
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'info@hoseconsultsugandaltd.com'
+EMAIL_HOST_PASSWORD = 'BankBank1481'
+
+DJANGO_REST_PASSWORDRESET_NO_INFORMATION_LEAKAGE = True
+DJANGO_REST_PASSWORDRESET_EMAIL_SUBJECT = 'Password Reset Request'
+DJANGO_REST_PASSWORDRESET_EMAIL_PLAIN = 'password_reset_email'
+DJANGO_REST_PASSWORDRESET_EMAIL_HTML = 'password_reset_email'
+
+import os
+
+# ...
+
+
+# settings.py
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+FRONTEND_URL = 'http://localhost:3000/'
+# ...
+
+
+
 
 TEMPLATES = [
     {
@@ -154,8 +191,12 @@ STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+# settings.py
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
 
 # Configure media files for profile images
 MEDIA_URL = '/media/'

@@ -1,11 +1,11 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Profile
+from .models import Profile, Lesons, CourseProgress, Contact
 
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = Profile
-        fields = ['profile_img', 'city', 'state', 'country', 'phone_number', 'zip_code']
+        fields = ['profile_img', 'city', 'state', 'country', 'phone_number', 'zip_code', 'active']
 
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer()
@@ -72,4 +72,23 @@ class UserProfileSerializer(serializers.ModelSerializer):
         profile.save()
 
         return instance
+    
+class LesonsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lesons
+        fields = ['id', 'title', 'src', 'img']    
+
+class CourseProgressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CourseProgress
+        fields = [ 'course_id', 'current_lesson', 'progress']  
+
+
+class ContactFormSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contact
+        fields = ['name', 'email', 'subject', 'message']
+
+    def create(self, validated_data):
+        return Contact.objects.create(**validated_data)             
 
